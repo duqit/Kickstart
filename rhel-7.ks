@@ -1,5 +1,5 @@
+cmdline
 install
-text
 lang en_GB.UTF-8
 keyboard us
 timezone Europe/Berlin
