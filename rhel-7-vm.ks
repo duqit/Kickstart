@@ -9,7 +9,7 @@ firewall --disabled
 services --disabled=NetworkManager
 services --enabled=sshd
 eula --agreed
-#ignoredisk --only-use=sda
+ignoredisk --only-use=vda
 reboot
 
 # System bootloader configuration
