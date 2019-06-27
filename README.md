@@ -1,2 +1,2 @@
-# Kickstart
-Kickstart Files
+# CentOS Tools
+CentOS Tools to help with automated installs.
