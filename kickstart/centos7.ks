@@ -11,6 +11,9 @@ services --enabled=sshd
 eula --agreed
 reboot
 
+network --bootproto=dhcp --device=eth0 --onboot=off --ipv6=auto --no-activate
+network --hostname=server.localdomain
+
 # System bootloader configuration
 bootloader --location=mbr
 zerombr

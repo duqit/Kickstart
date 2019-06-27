@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # Web Server URL
-WEB_SERVER=http://<web server hostname>
+WEB_SERVER=http://mirror.centos.org
 # Centos Mirror.
-CENTOS_MIRROR=$WEB_SERVER/<mirror path>
+CENTOS_MIRROR=$WEB_SERVER/centos/7/os/x86_64/
+
+KS_URL=https://raw.githubusercontent.com/virtuallytd/centos-tools/master/kickstart/centos7.ks
 
 # Grab kernel and initrd from mirror
 curl -o /boot/vmlinuz $CENTOS_MIRROR/isolinux/vmlinuz
@@ -14,7 +16,7 @@ if [ -d /sys/firmware/efi ]; then
 cat <<EOF >> /etc/grub.d/40_custom
 menuentry "Install CentOS 7" {
     set root='hd0,gpt2'
-    linuxefi /vmlinuz ks=$WEB_SERVER/kickstart/centos7-ks.cfg
+    linuxefi /vmlinuz ks=$KS_URL
     initrdefi /initrd.img
 }
 EOF
@@ -23,7 +25,7 @@ else
 cat <<EOF >> /etc/grub.d/40_custom
 menuentry "Install CentOS 7" {
     set root=(hd0,1)
-    linux /vmlinuz ks=$WEB_SERVER/kickstart/centos7-ks.cfg
+    linux /vmlinuz ks=$KS_URL
     initrd /initrd.img
 }
 EOF
