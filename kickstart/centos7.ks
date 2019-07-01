@@ -1,36 +1,55 @@
-cmdline
+#version=CENTOS7
+# Action
 install
-lang en_GB.UTF-8
-keyboard us
-timezone Europe/Berlin
-auth --useshadow --enablemd5
-selinux --disabled
-firewall --disabled
-services --disabled=NetworkManager
-services --enabled=sshd
-eula --agreed
-ignoredisk --only-use=sda
-reboot
 
-network --bootproto=dhcp --device=eth0 --onboot=off --ipv6=auto --no-activate
+# System authorization information
+auth --enableshadow --passalgo=sha512
+
+# Accept Eula
+eula --agreed
+
+reboot
+# Use network installation
+url --url="http://mirror.centos.org/centos/7/os/x86_64"
+#Repos
+repo --name=base --baseurl=http://mirror.centos.org/centos/7/os/x86_64/
+repo --name=updates --baseurl=http://mirror.centos.org/centos/7/updates/x86_64/
+
+# Run the Setup Agent on first boot
+firstboot --disabled
+ignoredisk --only-use=sda
+
+# Keyboard layouts
+keyboard us
+
+# System language
+lang en_US.UTF-8
+
+# Network information
+network  --bootproto=dhcp --noipv6 --activate
 network --hostname=server.localdomain
+
+# Root password (Password123$)
+rootpw --iscrypted $1$v9a1rt9i$U65p6z39VFTN90WeBhC9u/
+
+# System services
+services --enabled=sshd
+
+# System timezone
+timezone Europe/Berlin
+
+user --groups=wheel --homedir=/home/ansible --name=ansible --password=$1$v9a1rt9i$U65p6z39VFTN90WeBhC9u/ --iscrypted --gecos="Ansible"
 
 # System bootloader configuration
 bootloader --location=mbr --boot-drive=sda
+autopart --type=lvm
 zerombr
-clearpart --all --initlabel
-part pv.01 --size=1 --ondisk=sda --grow
-part /boot --fstype="xfs" --ondisk=sda --size=1024
-volgroup vg_system pv.01
-logvol swap --fstype="swap" --size=2048 --name=swap --vgname=vg_system
-logvol / --fstype="xfs" --name=lv_root --vgname=vg_system --size=1 --grow
 
-# Password is Password123$
-rootpw --iscrypted $1$v9a1rt9i$U65p6z39VFTN90WeBhC9u/
+# Partition clearing information
+clearpart --all --drives=sda
 
-repo --name=base --baseurl=http://mirror.centos.org/centos/7/os/x86_64/
-repo --name=updates --baseurl=http://mirror.centos.org/centos/7/updates/x86_64/
-url --url="http://mirror.centos.org/centos/7/os/x86_64/"
+# Selinux State
+selinux --disabled
 
 %packages --nobase --ignoremissing --excludedocs
 @core
