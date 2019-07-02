@@ -39,6 +39,7 @@ services --enabled=sshd
 timezone Europe/Berlin
 
 user --groups=wheel --homedir=/home/ansible --name=ansible --password=$1$v9a1rt9i$U65p6z39VFTN90WeBhC9u/ --iscrypted --gecos="Ansible"
+sshkey --username=ansible "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBMFz5Axpke6RGAPfyWSrQVY3zU6wJtMEbJpvXfD1Sgs ansible@virtuallytd.com"
 
 # System bootloader configuration
 bootloader --location=mbr --boot-drive=sda
