@@ -5,7 +5,7 @@ WEB_SERVER=http://mirror.centos.org
 # Centos Mirror.
 CENTOS_MIRROR=$WEB_SERVER/centos/7/os/x86_64/
 
-KS_URL=https://raw.githubusercontent.com/virtuallytd/centos-tools/master/kickstart/centos7.ks
+KS_URL=https://raw.githubusercontent.com/virtuallytd/centos-tools/master/kickstart/centos7.ks?token=AAFDYJSYT3S27UWN2ZUL7PK5ERHUY
 
 # Grab kernel and initrd from mirror
 curl -o /boot/vmlinuz $CENTOS_MIRROR/isolinux/vmlinuz
