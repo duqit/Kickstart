@@ -12,8 +12,7 @@ reboot
 # Use network installation
 url --url="http://mirror.centos.org/centos/8/os/x86_64"
 #Repos
-repo --name=base --baseurl=http://mirror.centos.org/centos/8/os/x86_64/
-repo --name=updates --baseurl=http://mirror.centos.org/centos/8/updates/x86_64/
+repo --name=base --baseurl=http://mirror.centos.org/centos/8/BaseOS/x86_64/os/
 
 # Run the Setup Agent on first boot
 firstboot --disabled
