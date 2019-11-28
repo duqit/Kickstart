@@ -52,7 +52,7 @@ clearpart --all --drives=sda
 # Selinux State
 selinux --disabled
 
-%packages --nobase --ignoremissing --excludedocs
+%packages --ignoremissing --excludedocs
 @core
 -iwl*
 -NetworkManager*
