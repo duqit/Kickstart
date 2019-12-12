@@ -49,6 +49,13 @@ zerombr
 # Partition clearing information
 clearpart --all --drives=vda
 
+part pv.01 --size=1 --ondisk=vda --grow
+part /boot --fstype="xfs" --ondisk=vda --size=1024
+volgroup vg_system pv.01
+logvol swap --fstype="swap" --size=2048 --name=swap --vgname=vg_system
+logvol / --fstype="xfs" --name=lv_root --vgname=vg_system --size=1 --grow
+
+
 # Selinux State
 selinux --disabled
 
