@@ -43,17 +43,31 @@ sshkey --username=ansible "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBMFz5Axpke6RGAPf
 
 # System bootloader configuration
 bootloader --location=mbr --boot-drive=vda
-autopart --type=lvm
 zerombr
+ignoredisk --only-use=vda
+
 
 # Partition clearing information
-clearpart --all --drives=vda
+clearpart --all --initlabel --drives=vda 
 
-part pv.01 --size=1 --ondisk=vda --grow
+#bootloader --append="crashkernel=auto" --location=mbr --boot-drive=vda
+
 part /boot --fstype="xfs" --ondisk=vda --size=1024
+
+part pv.01 --fstype="lvmpv" --size=1 --ondisk=vda --grow
+
 volgroup vg_system pv.01
 logvol swap --fstype="swap" --size=2048 --name=swap --vgname=vg_system
+
 logvol / --fstype="xfs" --name=lv_root --vgname=vg_system --size=1 --grow
+
+
+
+
+
+
+
+
 
 
 # Selinux State
