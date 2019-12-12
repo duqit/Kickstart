@@ -47,7 +47,7 @@ autopart --type=lvm
 zerombr
 
 # Partition clearing information
-clearpart --all --drives=sda
+clearpart --all --drives=vda
 
 # Selinux State
 selinux --disabled
