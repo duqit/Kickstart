@@ -61,15 +61,6 @@ logvol swap --fstype="swap" --size=2048 --name=swap --vgname=vg_system
 
 logvol / --fstype="xfs" --name=lv_root --vgname=vg_system --size=1 --grow
 
-
-
-
-
-
-
-
-
-
 # Selinux State
 selinux --disabled
 
