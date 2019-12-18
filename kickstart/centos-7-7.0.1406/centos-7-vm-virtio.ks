@@ -10,14 +10,13 @@ eula --agreed
 
 reboot
 # Use network installation
-url --url="http://mirror.centos.org/centos/7/os/x86_64"
+url --url="http://archive.kernel.org/centos-vault/7.0.1406/os/x86_64/"
 #Repos
-repo --name=base --baseurl=http://mirror.centos.org/centos/7/os/x86_64/
-repo --name=updates --baseurl=http://mirror.centos.org/centos/7/updates/x86_64/
+repo --name=base --baseurl=http://archive.kernel.org/centos-vault/7.0.1406/os/x86_64/
 
 # Run the Setup Agent on first boot
 firstboot --disabled
-ignoredisk --only-use=sda
+ignoredisk --only-use=vda
 
 # Keyboard layouts
 keyboard us
@@ -39,15 +38,21 @@ services --enabled=sshd
 timezone Europe/Berlin
 
 user --groups=wheel --homedir=/home/ansible --name=ansible --password=$1$v9a1rt9i$U65p6z39VFTN90WeBhC9u/ --iscrypted --gecos="Ansible"
-sshkey --username=ansible "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBMFz5Axpke6RGAPfyWSrQVY3zU6wJtMEbJpvXfD1Sgs ansible@virtuallytd.com"
+#sshkey --username=ansible "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBMFz5Axpke6RGAPfyWSrQVY3zU6wJtMEbJpvXfD1Sgs ansible@virtuallytd.com"
 
 # System bootloader configuration
-bootloader --location=mbr --boot-drive=sda
-autopart --type=lvm
+bootloader --location=mbr --boot-drive=vda
 zerombr
+ignoredisk --only-use=vda
 
 # Partition clearing information
-clearpart --all --drives=sda
+clearpart --all --initlabel --drives=vda 
+#bootloader --append="crashkernel=auto" --location=mbr --boot-drive=vda
+part /boot --fstype="xfs" --ondisk=vda --size=1024
+part pv.01 --fstype="lvmpv" --size=1 --ondisk=vda --grow
+volgroup vg_system pv.01
+logvol swap --fstype="swap" --size=2048 --name=swap --vgname=vg_system
+logvol / --fstype="xfs" --name=lv_root --vgname=vg_system --size=1 --grow
 
 # Selinux State
 selinux --disabled
