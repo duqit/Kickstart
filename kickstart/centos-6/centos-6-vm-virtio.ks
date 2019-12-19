@@ -25,7 +25,7 @@ keyboard us
 lang en_US.UTF-8
 
 # Network information
-network  --bootproto=dhcp --noipv6 --activate
+network  --bootproto=dhcp --device=eth0
 network --hostname=server.localdomain
 
 # Root password (Password123$)
