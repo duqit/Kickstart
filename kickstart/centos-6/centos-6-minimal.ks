@@ -8,7 +8,7 @@ reboot
 #cdrom
 #use a mirror close to you or even better, the local one provided by your organization
 #replace x86_64 with i386 for 32bit installs
-url --url http://vault.centos.org/6.0/os/x86_64/
+url --url https://archive.kernel.org/centos-vault/6.0/os/x86_64/
 lang en_US.UTF-8
 keyboard us
 skipx
